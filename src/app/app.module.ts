@@ -1,0 +1,46 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppComponent } from './app.component';
+import { CounterComponent } from './counter/counter.component';
+import { CounterbuttonComponent } from './counterbutton/counterbutton.component';
+import { CounteroutputComponent } from './counteroutput/counteroutput.component';
+import { counterReducer } from './state/counter.reducer';
+import { CustomInputComponent } from './custom-input/custom-input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { environment } from '../environments/environment';
+import { appReducer } from './app.state';
+import { AddPostComponent } from './add-post/add-post.component';
+
+
+@NgModule({
+  imports: [BrowserModule,AppRoutingModule,FormsModule, ReactiveFormsModule,
+   StoreModule.forRoot(appReducer),
+   StoreDevtoolsModule.instrument({
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),],
+  declarations: [
+    AppComponent,
+    CounterComponent,
+    CounterbuttonComponent,
+    CounteroutputComponent,
+    CustomInputComponent,
+    HomeComponent,
+    HeaderComponent,
+    PostListComponent,
+    AddPostComponent
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+/*
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://github.com/ngrx/platform
+*/
