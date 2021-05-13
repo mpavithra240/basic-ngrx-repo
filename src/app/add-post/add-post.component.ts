@@ -31,7 +31,7 @@ export class AddPostComponent implements OnInit {
     }
     const post: Posts = {
       title: this.postForm.value.title,
-      description: this.postForm.value.description
+      description: this.postForm.value.description,
     }
     this.store.dispatch(addPost({post}))
     console.log(this.postForm.value);

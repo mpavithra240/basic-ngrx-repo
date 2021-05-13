@@ -17,6 +17,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { environment } from '../environments/environment';
 import { appReducer } from './app.state';
 import { AddPostComponent } from './add-post/add-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AddPostComponent } from './add-post/add-post.component';
     HomeComponent,
     HeaderComponent,
     PostListComponent,
-    AddPostComponent
+    AddPostComponent,
+    EditPostComponent
   ],
   bootstrap: [AppComponent]
 })
