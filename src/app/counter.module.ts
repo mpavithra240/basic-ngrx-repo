@@ -14,7 +14,8 @@ const routes: Routes = [{ path: '', component: CounterComponent  }];
 
 @NgModule({
   declarations: [
-
+    CounterComponent,
+    
     CounterbuttonComponent,
     CounteroutputComponent,
     CustomInputComponent
