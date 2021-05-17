@@ -26,9 +26,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    PostListComponent,
-    AddPostComponent,
-    EditPostComponent
+
   ],
   bootstrap: [AppComponent]
 })
