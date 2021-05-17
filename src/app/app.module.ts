@@ -9,16 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
-import { PostListComponent } from './post-list/post-list.component';
 import { environment } from '../environments/environment';
 import { appReducer } from './app.state';
-import { AddPostComponent } from './add-post/add-post.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 @NgModule({
   imports: [BrowserModule,AppRoutingModule,FormsModule, ReactiveFormsModule,
-   StoreModule.forRoot(appReducer),
+   StoreModule.forRoot({}),
    StoreDevtoolsModule.instrument({
       logOnly: environment.production, // Restrict extension to log-only mode
     }),],
