@@ -11,20 +11,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { environment } from '../environments/environment';
 import { appReducer } from './app.state';
-
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [BrowserModule,AppRoutingModule,FormsModule, ReactiveFormsModule,
-   StoreModule.forRoot({}),
-   StoreDevtoolsModule.instrument({
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
+  declarations: [AppComponent, HomeComponent, HeaderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
