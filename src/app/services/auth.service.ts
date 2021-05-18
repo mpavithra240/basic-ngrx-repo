@@ -5,11 +5,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(email, password) {
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[AIzaSyDMe0Qauiz-mv4FiAzZRawk7Q7RRaUrjps]`,
-    {email,password, returnSecureToken: true})
-
+    console.log(email, password);
+    console.log(
+      this.http.post(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[AIzaSyDMe0Qauiz-mv4FiAzZRawk7Q7RRaUrjps]',
+        { email, password, returnSecureToken: true }
+      )
+    );
+    return this.http.post(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDMe0Qauiz-mv4FiAzZRawk7Q7RRaUrjps',
+      { email, password, returnSecureToken: true }
+    );
+  }
 }
