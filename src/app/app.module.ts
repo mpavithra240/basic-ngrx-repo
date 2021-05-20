@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { appReducer } from './app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './sharedComponent/loading-spinner/loading-spinner.component';
 
 @NgModule({
   imports: [
@@ -22,12 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  declarations: [AppComponent, HomeComponent, HeaderComponent],
+  declarations: [AppComponent, HomeComponent, HeaderComponent, LoadingSpinnerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

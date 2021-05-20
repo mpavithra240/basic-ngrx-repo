@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { AuthService } from '../services/auth.service';
+import { setLoadingSpinner } from '../sharedComponent/sharedStore/shared.action';
 import { loginstart } from '../state/auth.actions';
 
 @Component({
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     console.log(this.authservice.login(email,password));
+    this.store.dispatch(setLoadingSpinner({status: true}));
     this.store.dispatch(loginstart({email,password}))
   }
 
