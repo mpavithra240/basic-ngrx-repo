@@ -37,12 +37,27 @@ export class AuthService {
   getErrorMessage(message: string) {
     switch (message) {
       case 'EMAIL_NOT_FOUND':
-        return 'Email Not Found !';
+        return 'Email Not Found';
+      case 'INVALID_EMAIL':
+        return 'Invalid Email';
       case 'INVALID_PASSWORD':
-        return 'Invalid Password !';
-      default: 
-        return 'Unknown Error Occured Please Try again !'
+        return 'Invalid Password';
+      case 'EMAIL_EXISTS': 
+        return 'Email already exists'
+      default:
+        return 'Unknown Error Occured Please Try again !';
     }
+  }
+
+  signup(email, password): Observable<AuthResponseData> {
+    console.log(email, password);
+
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
+        environment.FIRE_BASE_API
+      }`,
+      { email, password, returnSecureToken: true }
+    );
   }
 }
 

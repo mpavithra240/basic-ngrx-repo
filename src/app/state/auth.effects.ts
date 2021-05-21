@@ -7,8 +7,16 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AppState } from '../app.state';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
-import { setLoadingSpinner, setErrorMEssage } from '../sharedComponent/sharedStore/shared.action';
-import { loginstart, loginSucess } from './auth.actions';
+import {
+  setLoadingSpinner,
+  setErrorMEssage
+} from '../sharedComponent/sharedStore/shared.action';
+import {
+  loginstart,
+  loginSucess,
+  signupstart,
+  signupsucess
+} from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -50,7 +58,7 @@ export class AuthEffects {
   loginRedirect$ = createEffect(
     () => {
       return this.action$.pipe(
-        ofType(loginSucess),
+        ofType(.[loginSucess, signupsucess]),
         tap(action => {
           this.router.navigate(['/']);
         })
@@ -58,4 +66,40 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  signup$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(signupstart),
+      exhaustMap(action => {
+        return this.authService.signup(action.email, action.password).pipe(
+          map(data => {
+            this.store.dispatch(setLoadingSpinner({ status: false }));
+            this.store.dispatch(setErrorMEssage({ message: '' }));
+            const user: User = this.authService.formatUSer(data);
+            return signupsucess({ user });
+          }),
+          catchError(err => {
+            this.store.dispatch(setLoadingSpinner({ status: false }));
+            console.log(err.error.error.message);
+            const errmsg = this.authService.getErrorMessage(
+              err.error.error.message
+            );
+            return of(setErrorMEssage({ message: err.error.error.message }));
+          })
+        );
+      })
+    );
+  });
+
+  // signupRedirect$ = createEffect(
+  //   () => {
+  //     return this.action$.pipe(
+  //       ofType(signupsucess),
+  //       tap(action => {
+  //         this.router.navigate(['/']);
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
 }
