@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../app.state';
+import { logout } from '../state/auth.actions';
 import { isAuthenticated } from '../state/auth.selector';
 
 @Component({
@@ -18,4 +19,8 @@ export class HeaderComponent implements OnInit {
     console.log(this.isAuthenticate);
   }
 
+  onLogout(event: Event) {
+    event.preventDefault();
+    this.store.dispatch(logout());
+  }
 }

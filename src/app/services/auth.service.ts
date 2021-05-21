@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthResponseData } from '../models/authResponseData.model';
 import { User } from '../models/user.model';
+import { logout } from '../state/auth.actions';
 import { environment } from './../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  timeOutInterval: any;
+  constructor(private http: HttpClient, private store: Store) {}
 
   login(email, password): Observable<AuthResponseData> {
     console.log(email, password);
@@ -42,8 +45,8 @@ export class AuthService {
         return 'Invalid Email';
       case 'INVALID_PASSWORD':
         return 'Invalid Password';
-      case 'EMAIL_EXISTS': 
-        return 'Email already exists'
+      case 'EMAIL_EXISTS':
+        return 'Email already exists';
       default:
         return 'Unknown Error Occured Please Try again !';
     }
@@ -58,6 +61,53 @@ export class AuthService {
       }`,
       { email, password, returnSecureToken: true }
     );
+  }
+
+  setUserInLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user));
+    this.runTimeOut(user);
+  }
+
+  runTimeOut(user: User) {
+    
+    const today = new Date().getTime();
+    // const exprDate = user.expireDate.getTime();
+    console.log(user)
+    // const timeInterval = exprDate - today;
+
+    this.timeOutInterval = setTimeout(() => {
+      //logout
+      this.store.dispatch(logout());
+    }, 300000);
+  }
+  getUserFromLocalStorgae() {
+    const userdatastring = localStorage.getItem('userData');
+    console.log(userdatastring);
+    if (userdatastring) {
+      const userdata = JSON.parse(userdatastring);
+      const user = new User(
+        userdata.email,
+        userdata.token,
+        userdata.localId,
+        userdata.expirationDate
+      );
+      // const date = Date.parse(user.expireDate)
+      console.log(user.expireDate, typeof user.expireDate);
+    //   this.timeOutInterval = setTimeout(() => {
+      
+    // }, 10000000);
+      this.runTimeOut(user);
+      return user;
+    }
+    return null;
+  }
+
+  logout() {
+    localStorage.removeItem('userData');
+    if(this.timeOutInterval) {
+      clearTimeout(this.timeOutInterval);
+      this.timeOutInterval = null;
+    }
   }
 }
 
