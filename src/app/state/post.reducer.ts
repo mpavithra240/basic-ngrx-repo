@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addPost, deletePost, updatePost } from './post.actions';
+import { addPost, deletePost, loadSucess, updatePost } from './post.actions';
 import { initialState } from './post.state';
 
 const _postReducer = createReducer(
@@ -29,6 +29,13 @@ const _postReducer = createReducer(
       ...state,
        post: dummy
     };
+  }),
+  on(loadSucess, (state, action) => {
+    console.log('hi12');
+   return {
+     ...state,
+     post: action.p
+   }
   })
 );
 

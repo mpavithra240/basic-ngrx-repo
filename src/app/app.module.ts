@@ -23,6 +23,7 @@ import { AuthEffects } from './state/auth.effects';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+  
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
