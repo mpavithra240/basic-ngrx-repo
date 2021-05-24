@@ -14,7 +14,7 @@ export class PostService {
   getPost(): Observable<Posts> {
     console.log('hi');
     return this.http
-      .get<Posts[]>(`https://ngrx-557f6-default-rtdb.firebaseio.com/post.json`)
+      .get<Posts>(`https://ngrx-557f6-default-rtdb.firebaseio.com/post.json`)
       .pipe(map(data => {
         const post: Posts[] = [];
         for(let key in data) {

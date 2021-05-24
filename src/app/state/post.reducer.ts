@@ -34,7 +34,7 @@ const _postReducer = createReducer(
     console.log('hi12');
    return {
      ...state,
-     post: action.p
+     post: action.post
    }
   })
 );
